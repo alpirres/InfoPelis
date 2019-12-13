@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">InfoPelis</string>
+    <string name="action_settings">Configuracion</string>
+    <string name="action_buscar">Buscar</string>
+    <string name="action_ordenar">Ordenar</string>
+    <string name="action_image">galeryBoton</string>
+    <string name="action_info">Sobre infoPelis</string>
+    <string name="title_activity_form">Form</string>
+    <string name="title_activity_list">List</string>
+    <string name="nombreform">Titulo</string>
+    <string name="duracionform">Duración</string>
+    <string name="directorform">Director</string>
+    <string name="comentarioform">Comenta...</string>
+    <string name="titlulo_pickers">Obtener fecha y hora</string>
+    <string name="formato_fecha">dd/mm/yyyy</string>
+    <string name="formato_hora">hh:mm</string>
+    <string name="choose">Elige una opción</string>
+    <string name="add">Añadir</string>
+    <string name="new_option">Nueva opción</string>
+    <string name="cancel">Cancelar</string>
+    <string name="add_new_option">Añadir nueva opción</string>
+    <string name="your_option">Escribe tu opción</string>
+    <string name="estreno">Estrenada en el cine</string>
+    <string name="contacto">Contacto</string>
+
+</resources>
