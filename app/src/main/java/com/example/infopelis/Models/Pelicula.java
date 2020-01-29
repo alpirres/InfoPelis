@@ -10,23 +10,6 @@ public class Pelicula{
     public Pelicula() {
     }
 
-    public Pelicula(Integer id, String titulo, String duracion, String director, String image) {
-        this.id = id;
-        this.titulo = titulo;
-        this.duracion = duracion;
-        this.director = director;
-        this.image = image;
-    }
-
-    public Pelicula(Integer id, String titulo, String duracion, String director) {
-        this.id = id;
-        this.titulo = titulo;
-        this.duracion = duracion;
-        this.director = director;
-    }
-
-
-
     public Integer getId() {
         return id;
     }

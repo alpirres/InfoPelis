@@ -22,5 +22,6 @@
     <string name="your_option">Escribe tu opción</string>
     <string name="estreno">Estrenada en el cine</string>
     <string name="contacto">Contacto</string>
+    <string name="guardar">Guardar</string>
 
 </resources>

@@ -29,7 +29,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-public class Form<CODE_READ_EXTERNAL_STORAGE_PERMISSION> extends AppCompatActivity implements formInterface.View {
+public class Form extends AppCompatActivity implements formInterface.View {
 
     private formInterface.Presenter presenter;
     String TAG = "APPCRUD/FormularioActivity";
@@ -37,6 +37,8 @@ public class Form<CODE_READ_EXTERNAL_STORAGE_PERMISSION> extends AppCompatActivi
     private Spinner spinner;
     private ArrayAdapter<String> adapter;
     private Button button;
+    final private int CODE_WRITE_EXTERNAL_STORAGE_PERMISSION = 123;
+    final private int CODE_READ_EXTERNAL_STORAGE_PERMISSION = 123;
     public ImageButton galeryBoton;
     private ConstraintLayout constraintLayoutMainActivity;
 
@@ -61,7 +63,6 @@ public class Form<CODE_READ_EXTERNAL_STORAGE_PERMISSION> extends AppCompatActivi
         presenter = new formPresenter(this);
 
 
-        constraintLayoutMainActivity = findViewById(R.id.);
 
         Button saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new android.view.View.OnClickListener() {
@@ -212,25 +213,28 @@ public class Form<CODE_READ_EXTERNAL_STORAGE_PERMISSION> extends AppCompatActivi
     }
 
     @Override
-    public void requirePermision() {
-        ActivityCompat.requestPermissions(Form.this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, );
+    public void selectImage() {
+
+    }
+
+    @Override
+    public void showAviso() {
+
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case CODE_READ_EXTERNAL_STORAGE_PERMISSION:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permiso aceptado
-                    //Snackbar.make(constraintLayoutMainActivity, getResources().getString(R.string.read_permission_accepted), Snackbar.LENGTH_LONG).show();
-                } else {
-                    // Permiso rechazado
-                    //Snackbar.make(constraintLayoutMainActivity, getResources().getString(R.string.read_permission_not_accepted), Snackbar.LENGTH_LONG).show();
-                    Log.d("AppCRUD", "")
-                }
+                presenter.resultPermission(grantResults[0]);
                 break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

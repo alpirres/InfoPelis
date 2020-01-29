@@ -7,10 +7,20 @@ public interface formInterface {
     interface Presenter {
         void Back();
         void onClickImage(Context c);
+
+        void resultPermission(int result);
+        void requirePermision();
+
+        void showAviso();
     }
 
     interface View{
         void returnToList();
-        void requirePermision();
+
+
+        void selectImage();
+
+
+        void showAviso();
     }
 }
