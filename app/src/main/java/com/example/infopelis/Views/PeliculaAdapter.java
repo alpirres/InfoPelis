@@ -67,7 +67,7 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
             super(itemView);
             imageAdapter = (ImageView) itemView.findViewById(R.id.imageRecicler);
             tituloAdapter = (TextView) itemView.findViewById(R.id.tituloRecicler);
-            directorAdapter = (TextView) itemView.findViewById(R.id.directorRecicler;
+            directorAdapter = (TextView) itemView.findViewById(R.id.directorRecicler);
         }
 
         public void PeliculaBind(Pelicula p){

@@ -18,18 +18,31 @@
     <string name="add">Añadir</string>
     <string name="new_option">Nueva opción</string>
     <string name="cancel">Cancelar</string>
+    <string name="borrar">Borrar</string>
     <string name="add_new_option">Añadir nueva opción</string>
     <string name="your_option">Escribe tu opción</string>
     <string name="estreno">Estrenada en el cine</string>
     <string name="contacto">Contacto</string>
     <string name="guardar">Guardar</string>
     <string name="countrow">Aun no se han añadido ninguna pelicula</string>
+    <string name="alertDelete">¿Desea borrar la pregunta?</string>
 
     <string name="error_titulo">Introduce un Titulo</string>
-    <string name="error_duracion">Introduce una Duración</string>
+    <string name="error_duracion">Introduce un numero entre 1 y 500</string>
     <string name="error_director">Introduce un Director</string>
     <string name="error_cat">Introduce un Categoria</string>
-    <string name="error_">Introduce un Director</string>
-    <string name="error_picker">Introduce un formato correcto</string>
+    <string name="error_comentario">Introduce algun Comentario</string>
+    <string name="error_picker">Introduce una Fecha</string>
+
+
+
+
+
+    //Toast
+    <string name="error_texto_vacio">Debes de escribir algun texto</string>
+    <string name="insertadOK">Se ha isnsertado correctamente</string>
+    <string name="insertadKO">No se ha podido insertar correctamente</string>
+    <string name="deleteBien">Se ha eliminado correctamente</string>
+    <string name="deleteMal">No se ha podido eliminar correctamente</string>
 
 </resources>

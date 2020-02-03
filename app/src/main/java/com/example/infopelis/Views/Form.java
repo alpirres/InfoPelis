@@ -1,10 +1,8 @@
 package com.example.infopelis.Views;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,17 +13,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
 
 import com.example.infopelis.Interfaces.formInterface;
+import com.example.infopelis.Models.Pelicula;
 import com.example.infopelis.Presenters.formPresenter;
 import com.example.infopelis.R;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -41,6 +41,23 @@ public class Form extends AppCompatActivity implements formInterface.View {
     final private int CODE_READ_EXTERNAL_STORAGE_PERMISSION = 123;
     public ImageButton galeryBoton;
     private ConstraintLayout constraintLayoutMainActivity;
+
+    public EditText titulo;
+    public EditText duracion;
+    public EditText comentario;
+    public EditText director;
+    public EditText fecha;
+    public Spinner categoria;
+    public Switch estrenado;
+
+    public TextView errorTitulo;
+    public TextView errorDururacion;
+    public TextView errorCategoria;
+    public TextView errorFecha;
+    public TextView errorDirector;
+    public TextView errorComentario;
+
+    Pelicula pelicula;
 
 
     @SuppressLint("WrongViewCast")
@@ -62,14 +79,38 @@ public class Form extends AppCompatActivity implements formInterface.View {
 
         presenter = new formPresenter(this);
 
+        pelicula = new Pelicula();
+
+
+        titulo =  (EditText) findViewById(R.id.tituloEditText);
+        duracion =  (EditText) findViewById(R.id.DuracionEditText);
+        comentario =  (EditText) findViewById(R.id.comentaeditText);
+        director =  (EditText) findViewById(R.id.directorEditText);
+        fecha =  (EditText) findViewById(R.id.datepickerText);
+        categoria =  (Spinner) findViewById(R.id.spinner);
+        estrenado = (Switch) findViewById(R.id.switch1);
+
+        errorTitulo = (TextView) findViewById(R.id.titulo_vacio);
+        errorComentario = (TextView) findViewById(R.id.comenta_vacio);
+        errorCategoria = (TextView) findViewById(R.id.category_vacio);
+        errorFecha = (TextView) findViewById(R.id.picker_vacio);
+        errorDirector = (TextView) findViewById(R.id.director_vacio);
+        errorDururacion = (TextView) findViewById(R.id.dur_vacio);
+
 
 
         Button saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View view) {
-                Log.d(TAG, "Pulsando boton flotante...");
-                presenter.Back();
+                Log.d(TAG, "Pulsando boton Guardar...");
+                if (validateForm()) {
+                    if(presenter.saveDataForm(pelicula, myContext)){
+                        Toast.makeText(myContext, R.string.insertadOK , Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(myContext, R.string.insertadKO , Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
 
@@ -82,28 +123,15 @@ public class Form extends AppCompatActivity implements formInterface.View {
             }
         });
 
-        ArrayList<String> items = new ArrayList<String>();
-        items.add("Acción");
-        items.add("Arte");
-        items.add("Aventura");
-        items.add("Comedia");
-        items.add("Deporte");
-        items.add("Documental");
-        items.add("Drama");
-        items.add("Infantil");
-        items.add("Familiar");
-        items.add("Terror");
-        items.add("Suspense");
-
         // Definición del Adaptador que contiene la lista de opciones
-        adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, items);
+        adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
         // Definición del Spinner
         spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setAdapter(adapter);
 
-        // Definición de la acción del botón
+        // Definición de la acción del botón del switch
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,14 +150,18 @@ public class Form extends AppCompatActivity implements formInterface.View {
                 final EditText dialogInput = (EditText) viewAlertDialog.findViewById(R.id.dialogInput);
 
                 // Configuración del AlertDialog
-                alertDialog
-                        .setCancelable(false)
+                alertDialog.setCancelable(false)
                         // Botón Añadir
                         .setPositiveButton(getResources().getString(R.string.add),
                                      new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialogBox, int id) {
-                                        adapter.add(dialogInput.getText().toString());
-                                        spinner.setSelection(adapter.getPosition(dialogInput.getText().toString()));
+                                        if (!dialogInput.getText().toString().equals("")) {
+                                            adapter.add(dialogInput.getText().toString());
+                                            spinner.setSelection(adapter.getPosition(dialogInput.getText().toString()));
+                                        } else {
+                                            dialogBox.cancel();
+                                            Toast.makeText(myContext, R.string.error_texto_vacio , Toast.LENGTH_LONG).show();
+                                        }
 
                                     }
                                 })
@@ -237,5 +269,57 @@ public class Form extends AppCompatActivity implements formInterface.View {
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    public boolean validateForm() {
+
+        boolean esValido = true;
+
+
+        if (pelicula.setTitulo(titulo.getText().toString())) {
+            errorTitulo.setVisibility(View.GONE);
+        } else {
+            errorTitulo.setVisibility(View.VISIBLE);
+            esValido = false;
+        }
+
+        if(pelicula.setFecha(fecha.getText().toString())){
+            errorFecha.setVisibility(View.GONE);
+        }else{
+            errorFecha.setVisibility(View.VISIBLE);
+            esValido=false;
+        }
+
+
+
+        if(categoria.getSelectedItem()!=null && pelicula.setCategoria(categoria.getSelectedItem().toString())){
+            errorCategoria.setVisibility(View.GONE);
+        }else{
+            errorCategoria.setVisibility(View.VISIBLE);
+            esValido=false;
+        }
+
+        if(pelicula.setDuracion(duracion.getText().toString())){
+            errorDururacion.setVisibility(View.GONE);
+        }else{
+            errorDururacion.setVisibility(View.VISIBLE);
+            esValido=false;
+        }
+
+        if(pelicula.setDirector(director.getText().toString())){
+            errorDirector.setVisibility(View.GONE);
+        }else{
+            errorDirector.setVisibility(View.VISIBLE);
+            esValido=false;
+        }
+
+        if(pelicula.setComentario(director.getText().toString())){
+            errorComentario.setVisibility(View.GONE);
+        }else{
+            errorComentario.setVisibility(View.VISIBLE);
+            esValido=false;
+        }
+
+        return esValido;
     }
 }

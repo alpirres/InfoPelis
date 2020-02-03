@@ -4,10 +4,16 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
 import com.example.infopelis.Interfaces.formInterface;
+import com.example.infopelis.Models.ControladorBBDD;
+import com.example.infopelis.Models.Pelicula;
+import com.example.infopelis.R;
+
+import java.util.ArrayList;
 
 public class formPresenter implements formInterface.Presenter{
 
@@ -44,15 +50,24 @@ public class formPresenter implements formInterface.Presenter{
 
     }
 
-
-    public void guardarForm(){
-
-    }
-
     @Override
     public void showAviso() {
 
     }
+
+    @Override
+    public boolean saveDataForm(Pelicula pelicula, Context myContext) {
+        ControladorBBDD controladorBBDD = new ControladorBBDD(myContext);
+        if (controladorBBDD.insertar(pelicula)) {
+            Back();
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+
 
 
 }

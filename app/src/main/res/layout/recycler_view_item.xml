@@ -14,13 +14,12 @@
       android:layout_marginTop="8dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintTop_toBottomOf="8dp"/>
+      app:layout_constraintTop_toBottomOf="parent"/>
 
   <TextView
       android:id="@+id/tituloRecicler"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      tools:text="@tools:sample/full_names"
       android:textSize="20sp"
       android:textColor="@android:color/black"
       app:layout_constraintTop_toTopOf="@+id/imageRecicler"
@@ -31,14 +30,13 @@
 
   <TextView
       android:id="@+id/directorRecicler"
-      android:layout_width="285dp"
-      android:layout_height="20dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
       android:layout_marginEnd="8dp"
       android:layout_marginBottom="12dp"
       android:textSize="15dp"
       app:layout_constraintBottom_toBottomOf="@+id/imageRecicler"
-      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1.0"
       app:layout_constraintStart_toEndOf="@+id/imageRecicler" />
 

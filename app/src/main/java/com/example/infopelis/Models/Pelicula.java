@@ -118,21 +118,22 @@ public class Pelicula{
         return comentario;
     }
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
+    public boolean setComentario(String comentario) {
+        if(comentario.length()!=0){
+            this.comentario = comentario;
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
     public String getImage() {
         return image;
     }
 
-    public boolean setImage(String image) {
-        if(image.length()!=0){
+    public void setImage(String image) {
             this.image = image;
-            return true;
-        }else{
-            return false;
-        }
     }
 
 }

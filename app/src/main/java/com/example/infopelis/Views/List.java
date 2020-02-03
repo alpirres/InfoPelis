@@ -1,20 +1,26 @@
 package com.example.infopelis.Views;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,6 +39,8 @@ public class List extends AppCompatActivity implements listInterface.View {
     FloatingActionButton fab;
     private ArrayList<Pelicula> pelis;
     private TextView countRow;
+    private Intent restart;
+    private Context myContext;
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager manager;
@@ -44,23 +52,7 @@ public class List extends AppCompatActivity implements listInterface.View {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        presenter = new listPresenter(this);
-
-        pelis=presenter.getAllPeliculas();
-
-        countRow = (TextView) findViewById(R.id.contactcount);
-
-
-        recycler = findViewById(R.id.recyclerView);
-        manager=new LinearLayoutManager(this);
-        recycler.setLayoutManager(manager);
-        adapter= new PeliculaAdapter(this, pelis);
-
-        if(!pelis.isEmpty()){
-            countRow.setText("Peliculas mostradas: "+adapter.getItemCount());
-        }
-
-        recycler.setAdapter(adapter);
+        presenter = new listPresenter(this, this);
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +82,111 @@ public class List extends AppCompatActivity implements listInterface.View {
         super.onResume();
         Log.d(TAG, "Ejecutando onResume...");
 
+        pelis=presenter.findAllPeliculas();
 
+        countRow = (TextView) findViewById(R.id.contactcount);
+
+        myContext=this;
+
+
+        recycler = findViewById(R.id.recyclerView);
+        manager=new LinearLayoutManager(this);
+        recycler.setLayoutManager(manager);
+        adapter= new PeliculaAdapter(this, pelis);
+
+        if(pelis.isEmpty()){
+            countRow.setText(R.string.countrow);
+        }else{
+            countRow.setText("Peliculas registradas: "+adapter.getItemCount());
+        }
+
+
+
+        //SWIPE que para editar pregunta al deslizar el dedo sobre la tarjeta hacia la derecha y borrala si lo deslizamos hacia la izquierda
+        ItemTouchHelper.SimpleCallback simpleCallback=new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT){
+            @Override
+            public boolean onMove(RecyclerView recyclerView,RecyclerView.ViewHolder viewHolder,RecyclerView.ViewHolder target){
+                return false;
+            }
+
+            @Override
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder,int direction){
+                final int position=viewHolder.getAdapterPosition();//getpositionwhichisswipe
+
+                //Al deslizar a la izquierda borramos la pregunta
+                if(direction == ItemTouchHelper.LEFT){
+                    // Recuperación de la vista del AlertDialog a partir del layout de la Actividad
+                    LayoutInflater layoutActivity = LayoutInflater.from(myContext);
+                    View viewAlertDialog = layoutActivity.inflate(R.layout.alert_dialog_delete, null);
+
+                    // Definición del AlertDialog
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(myContext);
+
+                    // Asignación del AlertDialog a su vista
+                    alertDialog.setView(viewAlertDialog);
+
+                    // Recuperación del EditText del AlertDialog
+                    final EditText dialogInput = (EditText) viewAlertDialog.findViewById(R.id.dialogInput);
+
+                    // Configuración del AlertDialog
+                    alertDialog
+                            .setCancelable(false)
+                            // Botón Borrar
+                            .setPositiveButton(getResources().getString(R.string.borrar),
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialogBox, int id) {
+                                            if(presenter.deletePeli(pelis.get(position).getId())){
+                                                restart = getIntent();
+                                                finish();
+                                                startActivity(restart);
+                                                Toast.makeText(myContext, R.string.deleteBien , Toast.LENGTH_LONG).show();
+                                            }else{
+                                                Toast.makeText(myContext, R.string.deleteMal , Toast.LENGTH_LONG).show();
+                                            }
+
+                                        }
+                                    })
+                            // Botón Cancelar
+                            .setNegativeButton(getResources().getString(R.string.cancel),
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialogBox, int id) {
+                                            dialogBox.cancel();
+                                            restart = getIntent();
+                                            finish();
+                                            startActivity(restart);
+                                        }
+                                    })
+                            .create()
+                            .show();
+                }
+
+
+                //Al deslizar a la derecha editamos la pregunta
+                if(direction == ItemTouchHelper.RIGHT){
+
+                    Intent editarpeli= new Intent(List.this, Form.class);
+
+                    //Creamos la información a pasar entre actividades
+                    Bundle b = new Bundle();
+                    b.putInt("CodigoEditarPregunta", pelis.get(position).getId());
+
+
+                    //Añadimos la información al intent
+                    editarpeli.putExtras(b);
+
+                    startActivity(editarpeli);
+
+
+                }
+            }
+
+
+        };
+
+        ItemTouchHelper itemTouchHelper =new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recycler);
+
+        recycler.setAdapter(adapter);
     }
 
     @Override
