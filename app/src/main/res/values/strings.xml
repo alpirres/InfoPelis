@@ -23,5 +23,13 @@
     <string name="estreno">Estrenada en el cine</string>
     <string name="contacto">Contacto</string>
     <string name="guardar">Guardar</string>
+    <string name="countrow">Aun no se han añadido ninguna pelicula</string>
+
+    <string name="error_titulo">Introduce un Titulo</string>
+    <string name="error_duracion">Introduce una Duración</string>
+    <string name="error_director">Introduce un Director</string>
+    <string name="error_cat">Introduce un Categoria</string>
+    <string name="error_">Introduce un Director</string>
+    <string name="error_picker">Introduce un formato correcto</string>
 
 </resources>

@@ -10,7 +10,7 @@ public interface listInterface {
         void Add();
 
         ArrayList<Pelicula> getAllPeliculas();
-        void onClickRecyclerView(Integer id);
+
 
     }
 

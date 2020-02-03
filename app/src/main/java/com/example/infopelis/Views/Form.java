@@ -130,6 +130,7 @@ public class Form extends AppCompatActivity implements formInterface.View {
                                     public void onClick(DialogInterface dialogBox, int id) {
                                         adapter.add(dialogInput.getText().toString());
                                         spinner.setSelection(adapter.getPosition(dialogInput.getText().toString()));
+
                                     }
                                 })
                         // Botón Cancelar

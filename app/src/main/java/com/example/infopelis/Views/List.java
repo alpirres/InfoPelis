@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infopelis.Interfaces.listInterface;
 import com.example.infopelis.Models.Pelicula;
-import com.example.infopelis.Models.PeliculaModel;
 import com.example.infopelis.Presenters.listPresenter;
 import com.example.infopelis.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,7 +30,12 @@ public class List extends AppCompatActivity implements listInterface.View {
 
     private listInterface.Presenter presenter;
     String TAG = "APPCRUD/Listado";
-    private ArrayList<Pelicula> items;
+    FloatingActionButton fab;
+    private ArrayList<Pelicula> pelis;
+    private TextView countRow;
+    private RecyclerView recycler;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,28 +46,23 @@ public class List extends AppCompatActivity implements listInterface.View {
 
         presenter = new listPresenter(this);
 
-        final RecyclerView recyclerview = findViewById(R.id.recyclerView);
+        pelis=presenter.getAllPeliculas();
 
-        items = presenter.getAllPeliculas();
-//
-        PeliculaAdapter ca = new PeliculaAdapter(items);
-
-        ca.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                int position = recyclerview.getChildAdapterPosition(v);
-                Log.d(TAG, "Clicl RV: "+ position + " "+ String.valueOf(items.get(position).getId()));
-                presenter.onClickRecyclerView(items.get(position).getId());
-            }
-        });
-
-        recyclerview.setAdapter(ca);
-
-        recyclerview.setLayoutManager(new LinearLayoutManager(this));
+        countRow = (TextView) findViewById(R.id.contactcount);
 
 
+        recycler = findViewById(R.id.recyclerView);
+        manager=new LinearLayoutManager(this);
+        recycler.setLayoutManager(manager);
+        adapter= new PeliculaAdapter(this, pelis);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        if(!pelis.isEmpty()){
+            countRow.setText("Peliculas mostradas: "+adapter.getItemCount());
+        }
+
+        recycler.setAdapter(adapter);
+
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +89,8 @@ public class List extends AppCompatActivity implements listInterface.View {
     protected void onResume(){
         super.onResume();
         Log.d(TAG, "Ejecutando onResume...");
+
+
     }
 
     @Override
