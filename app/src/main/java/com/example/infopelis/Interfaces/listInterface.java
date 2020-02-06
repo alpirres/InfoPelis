@@ -16,6 +16,8 @@ public interface listInterface {
         boolean deletePeli(int i);
 
         ArrayList<Pelicula> findAllPeliculas();
+
+        ArrayList<Pelicula> findRecyclerPeliculas();
     }
 
     interface View{

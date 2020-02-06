@@ -25,16 +25,15 @@
     <string name="contacto">Contacto</string>
     <string name="guardar">Guardar</string>
     <string name="countrow">Aun no se han añadido ninguna pelicula</string>
-    <string name="alertDelete">¿Desea borrar la pregunta?</string>
+    <string name="alertDelete">¿Desea borrar la Pelicula?</string>
 
+    //Errores
     <string name="error_titulo">Introduce un Titulo</string>
     <string name="error_duracion">Introduce un numero entre 1 y 500</string>
     <string name="error_director">Introduce un Director</string>
     <string name="error_cat">Introduce un Categoria</string>
     <string name="error_comentario">Introduce algun Comentario</string>
-    <string name="error_picker">Introduce una Fecha</string>
-
-
+    <string name="error_picker">Introduce un formato correcto(dd/mm/aaaa)</string>
 
 
 
@@ -42,7 +41,13 @@
     <string name="error_texto_vacio">Debes de escribir algun texto</string>
     <string name="insertadOK">Se ha isnsertado correctamente</string>
     <string name="insertadKO">No se ha podido insertar correctamente</string>
+    <string name="updateOK">Se ha actualizado correctamente</string>
+    <string name="updateKO">No se ha podido actualizar correctamente</string>
     <string name="deleteBien">Se ha eliminado correctamente</string>
     <string name="deleteMal">No se ha podido eliminar correctamente</string>
+    <string name="write_permission_granted">Tienes permiso de Escritura</string>
+    <string name="write_permission_denied">No tienes permiso de Escritura</string>
+    <string name="write_permission_accepted">Has aceptado permiso de Escritura</string>
+    <string name="write_permission_not_accepted">No has aceptado permiso de Escritura</string>
 
 </resources>

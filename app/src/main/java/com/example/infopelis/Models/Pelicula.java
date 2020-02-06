@@ -9,12 +9,31 @@ public class Pelicula{
     private String director;
     private String fecha;
     private String categoria;
-    private String estreno;
+    private Integer estreno;
     private String comentario;
     private String image;
 
 
     public Pelicula() {
+    }
+
+    public Pelicula(Integer id,String titulo, String director, String image) {
+        this.id = id;
+        this.titulo = titulo;
+        this.director = director;
+        this.image = image;
+    }
+
+    public Pelicula(Integer id, String titulo, String fecha, String categoria, String duracion, String director, Integer estreno, String comentario, String image) {
+        this.id = id;
+        this.titulo = titulo;
+        this.duracion = duracion;
+        this.director = director;
+        this.fecha = fecha;
+        this.categoria = categoria;
+        this.estreno = estreno;
+        this.comentario = comentario;
+        this.image = image;
     }
 
     public Integer getId() {
@@ -70,8 +89,13 @@ public class Pelicula{
         return director;
     }
 
+    /**
+     * Funcion que valida que el director no este vacio
+     * @param director
+     * @return
+     */
     public boolean setDirector(String director) {
-        if(director.length()!=0){
+        if(!director.equals("")){
             this.director = director;
             return true;
         }else{
@@ -84,8 +108,15 @@ public class Pelicula{
         return fecha;
     }
 
+    /**
+     * Funcion que valida que introduce un formato correcto
+     *  dd/mm/aaaa
+     * @param fecha
+     * @return
+     */
     public boolean setFecha(String fecha) {
-        if(fecha.length()!=0){
+        String patern1="^([0-2][0-9]|3[0-1])(\\/)(0[1-9]|1[0-2])\\2(\\d{4})$";
+        if(Pattern.matches(patern1,fecha)){
             this.fecha = fecha;
             return true;
         }else{
@@ -106,11 +137,11 @@ public class Pelicula{
         }
     }
 
-    public String getEstreno() {
+    public Integer getEstreno() {
         return estreno;
     }
 
-    public void setEstreno(String estreno) {
+    public void setEstreno(Integer estreno) {
         this.estreno = estreno;
     }
 
@@ -133,7 +164,7 @@ public class Pelicula{
     }
 
     public void setImage(String image) {
-            this.image = image;
+        this.image = image;
     }
 
 }

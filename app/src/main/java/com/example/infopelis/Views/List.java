@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
@@ -82,7 +83,7 @@ public class List extends AppCompatActivity implements listInterface.View {
         super.onResume();
         Log.d(TAG, "Ejecutando onResume...");
 
-        pelis=presenter.findAllPeliculas();
+        pelis=presenter.findRecyclerPeliculas();
 
         countRow = (TextView) findViewById(R.id.contactcount);
 
@@ -105,13 +106,13 @@ public class List extends AppCompatActivity implements listInterface.View {
         //SWIPE que para editar pregunta al deslizar el dedo sobre la tarjeta hacia la derecha y borrala si lo deslizamos hacia la izquierda
         ItemTouchHelper.SimpleCallback simpleCallback=new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT){
             @Override
-            public boolean onMove(RecyclerView recyclerView,RecyclerView.ViewHolder viewHolder,RecyclerView.ViewHolder target){
-                return false;
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return true;
             }
 
             @Override
             public void onSwiped(final RecyclerView.ViewHolder viewHolder,int direction){
-                final int position=viewHolder.getAdapterPosition();//getpositionwhichisswipe
+                final int idd=pelis.get(viewHolder.getAdapterPosition()).getId();
 
                 //Al deslizar a la izquierda borramos la pregunta
                 if(direction == ItemTouchHelper.LEFT){
@@ -135,10 +136,8 @@ public class List extends AppCompatActivity implements listInterface.View {
                             .setPositiveButton(getResources().getString(R.string.borrar),
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialogBox, int id) {
-                                            if(presenter.deletePeli(pelis.get(position).getId())){
-                                                restart = getIntent();
-                                                finish();
-                                                startActivity(restart);
+                                            if(presenter.deletePeli(idd)){
+                                                recreate();
                                                 Toast.makeText(myContext, R.string.deleteBien , Toast.LENGTH_LONG).show();
                                             }else{
                                                 Toast.makeText(myContext, R.string.deleteMal , Toast.LENGTH_LONG).show();
@@ -151,9 +150,7 @@ public class List extends AppCompatActivity implements listInterface.View {
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialogBox, int id) {
                                             dialogBox.cancel();
-                                            restart = getIntent();
-                                            finish();
-                                            startActivity(restart);
+                                            recreate();
                                         }
                                     })
                             .create()
@@ -168,15 +165,13 @@ public class List extends AppCompatActivity implements listInterface.View {
 
                     //Creamos la información a pasar entre actividades
                     Bundle b = new Bundle();
-                    b.putInt("CodigoEditarPregunta", pelis.get(position).getId());
+                    b.putInt("CodigoPeliculaEdit", idd);
 
 
                     //Añadimos la información al intent
                     editarpeli.putExtras(b);
 
                     startActivity(editarpeli);
-
-
                 }
             }
 
