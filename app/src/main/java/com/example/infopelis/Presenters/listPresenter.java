@@ -27,6 +27,11 @@ public class listPresenter implements listInterface.Presenter {
     }
 
     @Override
+    public void Find() {
+        view.showBuscar();
+    }
+
+    @Override
     public boolean deletePeli(int codigo){
         if(pelicula.delete(codigo)){
             return true;
@@ -45,6 +50,12 @@ public class listPresenter implements listInterface.Presenter {
     @Override
     public ArrayList<Pelicula> findRecyclerPeliculas(){
         ArrayList<Pelicula> allPelis = pelicula.findSomePelis();
+        return allPelis;
+    }
+
+    @Override
+    public ArrayList<Pelicula> doBuscar(String t, String c, String f){
+        ArrayList<Pelicula> allPelis = pelicula.findByCriteria(t,c,f);
         return allPelis;
     }
 

@@ -129,7 +129,7 @@ public class Pelicula{
     }
 
     public boolean setCategoria(String categoria) {
-        if(categoria.length()!=0){
+        if(!categoria.equals("Añade...")){
             this.categoria = categoria;
             return true;
         }else {

@@ -7,8 +7,10 @@
     <string name="action_info">Sobre infoPelis</string>
     <string name="title_activity_form">Form</string>
     <string name="title_activity_list">List</string>
+    <string name="title_activity_buscar">Busqueda</string>
     <string name="nombreform">Titulo</string>
     <string name="duracionform">Duración</string>
+    <string name="categori">Categoria</string>
     <string name="directorform">Director</string>
     <string name="comentarioform">Comenta...</string>
     <string name="titlulo_pickers">Obtener fecha y hora</string>

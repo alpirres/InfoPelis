@@ -11,7 +11,11 @@ public interface listInterface {
     interface Presenter {
         void Add();
 
+        ArrayList<Pelicula> doBuscar(String t, String c, String f);
+
         void onClickRecyclerView(Integer id);
+
+        void Find();
 
         boolean deletePeli(int i);
 
@@ -22,5 +26,7 @@ public interface listInterface {
 
     interface View{
         void showForm();
+
+        void showBuscar();
     }
 }

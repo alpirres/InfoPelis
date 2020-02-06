@@ -38,6 +38,7 @@ public class List extends AppCompatActivity implements listInterface.View {
     private listInterface.Presenter presenter;
     String TAG = "APPCRUD/Listado";
     FloatingActionButton fab;
+    ImageButton buscar;
     private ArrayList<Pelicula> pelis;
     private TextView countRow;
     private Intent restart;
@@ -63,6 +64,15 @@ public class List extends AppCompatActivity implements listInterface.View {
                 presenter.Add();
             }
         });
+
+        buscar = findViewById(R.id.buscarButton);
+        buscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "Pulsando boton buscar...");
+                presenter.Find();
+            }
+        });
     }
 
     @Override
@@ -83,7 +93,17 @@ public class List extends AppCompatActivity implements listInterface.View {
         super.onResume();
         Log.d(TAG, "Ejecutando onResume...");
 
-        pelis=presenter.findRecyclerPeliculas();
+        Bundle parametros = this.getIntent().getExtras();
+        if(parametros !=null){
+            System.out.println("-----------/"+parametros.getString("titulo")+"/------------------");
+            String titulo = parametros.getString("titulo");
+            System.out.println("-----------------:"+titulo+":--------------");
+            String cat = parametros.getString("categoria");
+            String fecha = parametros.getString("fecha");
+            pelis=presenter.doBuscar(titulo,cat,fecha);
+        }else{
+            pelis=presenter.findRecyclerPeliculas();
+        }
 
         countRow = (TextView) findViewById(R.id.contactcount);
 
@@ -214,6 +234,15 @@ public class List extends AppCompatActivity implements listInterface.View {
         Intent intent = new Intent(List.this, Form.class);
         startActivity(intent);
     }
+
+    @Override
+    public void showBuscar() {
+        Log.d(TAG, "Lanzando Busqueda");
+        Intent intent = new Intent(List.this, Buscar.class);
+        startActivity(intent);
+    }
+
+
 
 
 }

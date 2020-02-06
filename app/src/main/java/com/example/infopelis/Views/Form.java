@@ -101,6 +101,7 @@ public class Form extends AppCompatActivity implements formInterface.View {
         //inicializacion del array que contiene los items de la categoria
         ArrayList<String> items = new ArrayList<String>();
         items=presenter.obtenerCategorias(myContext);
+        items.add(0,"Añade...");
 
         // Definición del Adaptador que contiene la lista de opciones
         adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,items);
@@ -180,6 +181,7 @@ public class Form extends AppCompatActivity implements formInterface.View {
 
             Pelicula pelicu = presenter.getPeliculaId(editcodigo,myContext);
 
+            items.remove(0);
             pelicula.setId(pelicu.getId());
             titulo.setText(pelicu.getTitulo());
             duracion.setText(pelicu.getDuracion());

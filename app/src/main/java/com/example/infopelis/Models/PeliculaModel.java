@@ -251,13 +251,15 @@ public class PeliculaModel extends SQLiteOpenHelper {
         return p;
     }
 
-    public ArrayList<Pelicula> findByCriteria(String titulo, String Categoria,String Fecha){
+    public ArrayList<Pelicula> findByCriteria(String Titulo, String Categoria, String Fecha){
 
-        String[] args =new String[]{"'%"+titulo+"%'","'%"+Categoria+"%'","'%"+Fecha+"%'"};
+        String[] args =new String[]{"%"+Titulo+"%","%"+Categoria+"%","%"+Fecha+"%"};
 
         db = sqLiteHelper.getReadableDatabase();
 
-        Cursor c = db.rawQuery("SELECT codigo, titulo, director, imagen FROM Peliculas WHERE titulo like '%?%' AND categoria like ? AND fecha like ?", args);
+        System.out.println(Titulo+"///////"+Categoria+"::::::::"+Fecha);
+
+        Cursor c = db.rawQuery("SELECT codigo, titulo, director, imagen FROM Peliculas WHERE titulo like ? AND categoria like ? AND fecha like ?", args);
 
         ArrayList<Pelicula> listPelis = new ArrayList<Pelicula>();
 
