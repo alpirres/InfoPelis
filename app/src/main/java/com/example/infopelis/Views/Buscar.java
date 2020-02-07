@@ -1,25 +1,37 @@
 package com.example.infopelis.Views;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.infopelis.Interfaces.buscarInterface;
+import com.example.infopelis.Interfaces.formInterface;
+import com.example.infopelis.Presenters.buscarPresenter;
+import com.example.infopelis.Presenters.formPresenter;
 import com.example.infopelis.R;
 
-public class Buscar extends AppCompatActivity {
+import java.util.ArrayList;
 
+public class Buscar extends AppCompatActivity implements buscarInterface.View {
+
+    private buscarInterface.Presenter presenter;
+    private Context myContext;
+    private ArrayAdapter<String> adapter;
     String TAG = "APPCRUD/BuscarActivity";
     Button buscar;
     EditText titulo;
-    EditText categoria;
+    Spinner categoria;
     EditText fecha;
 
     @SuppressLint("WrongViewCast")
@@ -37,9 +49,23 @@ public class Buscar extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        myContext=this;
+        presenter = new buscarPresenter(this, myContext );
+
+        //inicializacion del array que contiene los items de la categoria
+        ArrayList<String> items = new ArrayList<String>();
+        items=presenter.obtenerCategorias(myContext);
+        items.add(0,"");
+
+        // Definición del Adaptador que contiene la lista de opciones
+        adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,items);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+
+        // Definición del Spinner
+        categoria =  (Spinner) findViewById(R.id.buscarCat);
+        categoria.setAdapter(adapter);
 
         titulo= (EditText) findViewById(R.id.buscarText);
-        categoria=(EditText) findViewById(R.id.buscarCat);
         fecha= (EditText) findViewById(R.id.buscarFecha);
 
         buscar= (Button) findViewById(R.id.botonBuscar);
@@ -48,14 +74,13 @@ public class Buscar extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d(TAG, "Pulsando boton Buscar...");
 
-                Intent intent = new Intent(Buscar.this, List.class);
-                    if(titulo.length()!=0||categoria.length()!=0||fecha.length()!=0) {
+                Intent intent = new Intent();
+                    if(titulo.length()!=0||categoria.getSelectedItem().toString().length()!=0||fecha.length()!=0) {
                         intent.putExtra("titulo", titulo.getText().toString());
-                        intent.putExtra("categoria", categoria.getText().toString());
+                        intent.putExtra("categoria", categoria.getSelectedItem().toString());
                         intent.putExtra("fecha", fecha.getText().toString());
                     }
-                startActivity(intent);
-
+                    setResult(RESULT_OK,intent);
                 finish();
             }
         });

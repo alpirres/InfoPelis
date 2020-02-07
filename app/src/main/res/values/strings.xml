@@ -28,6 +28,8 @@
     <string name="guardar">Guardar</string>
     <string name="countrow">Aun no se han añadido ninguna pelicula</string>
     <string name="alertDelete">¿Desea borrar la Pelicula?</string>
+    <string name="filtro">Criterios de busquedad: </string>
+    <string name="fecha">Fecha</string>
 
     //Errores
     <string name="error_titulo">Introduce un Titulo</string>

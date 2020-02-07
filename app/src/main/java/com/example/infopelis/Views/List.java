@@ -36,16 +36,20 @@ import java.util.ArrayList;
 public class List extends AppCompatActivity implements listInterface.View {
 
     private listInterface.Presenter presenter;
+    static final int PICK_CONTACT_REQUEST = 5;
     String TAG = "APPCRUD/Listado";
     FloatingActionButton fab;
     ImageButton buscar;
+    Bundle parametros;
     private ArrayList<Pelicula> pelis;
     private TextView countRow;
+    private TextView filtrado;
     private Intent restart;
     private Context myContext;
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager manager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,16 +97,31 @@ public class List extends AppCompatActivity implements listInterface.View {
         super.onResume();
         Log.d(TAG, "Ejecutando onResume...");
 
-        Bundle parametros = this.getIntent().getExtras();
+        filtrado= findViewById(R.id.Filtros);
+
         if(parametros !=null){
+            filtrado.setText(R.string.filtro);
             System.out.println("-----------/"+parametros.getString("titulo")+"/------------------");
             String titulo = parametros.getString("titulo");
             System.out.println("-----------------:"+titulo+":--------------");
             String cat = parametros.getString("categoria");
             String fecha = parametros.getString("fecha");
             pelis=presenter.doBuscar(titulo,cat,fecha);
+            filtrado.setVisibility(View.VISIBLE);
+            if(titulo.length()!=0){
+                filtrado.append(" Titulo ");
+            }
+            if(cat.length()!=0){
+                filtrado.append(" Categoria ");
+            }
+            if(fecha.length()!=0){
+                filtrado.append(" Fecha ");
+            }
+
         }else{
             pelis=presenter.findRecyclerPeliculas();
+            filtrado.setText(R.string.filtro);
+            filtrado.setVisibility(View.GONE);
         }
 
         countRow = (TextView) findViewById(R.id.contactcount);
@@ -205,6 +224,20 @@ public class List extends AppCompatActivity implements listInterface.View {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "Ejecutando Activity Result");
+        // Check which request we're responding to
+        if (requestCode == PICK_CONTACT_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                 parametros=data.getExtras();
+            }
+        }
+
+    }
+
+
+    @Override
     protected void onPause(){
         super.onPause();
         Log.d(TAG, "Ejecutando onPause...");
@@ -239,7 +272,7 @@ public class List extends AppCompatActivity implements listInterface.View {
     public void showBuscar() {
         Log.d(TAG, "Lanzando Busqueda");
         Intent intent = new Intent(List.this, Buscar.class);
-        startActivity(intent);
+        startActivityForResult(intent, PICK_CONTACT_REQUEST);
     }
 
 

@@ -257,8 +257,6 @@ public class PeliculaModel extends SQLiteOpenHelper {
 
         db = sqLiteHelper.getReadableDatabase();
 
-        System.out.println(Titulo+"///////"+Categoria+"::::::::"+Fecha);
-
         Cursor c = db.rawQuery("SELECT codigo, titulo, director, imagen FROM Peliculas WHERE titulo like ? AND categoria like ? AND fecha like ?", args);
 
         ArrayList<Pelicula> listPelis = new ArrayList<Pelicula>();

@@ -16,15 +16,11 @@ import com.example.infopelis.Models.Pelicula;
 import com.example.infopelis.Models.PeliculaModel;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class formPresenter implements formInterface.Presenter{
 
     private formInterface.View view;
-    private Context myContext;
     public PeliculaModel pelicula;
 
     public formPresenter(formInterface.View view ,Context myContext){
