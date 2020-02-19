@@ -37,12 +37,17 @@ public class Pelicula{
     }
 
     public Integer getId() {
-
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public boolean setId(Integer id) {
+        String patern1="^\\d+$";
+        if(Pattern.matches(patern1,id.toString())){
+            this.id = id;
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public String getTitulo() {
@@ -95,7 +100,8 @@ public class Pelicula{
      * @return
      */
     public boolean setDirector(String director) {
-        if(!director.equals("")){
+        String patern1="^(?:[A-ZÄËÏÖÜÁÉÍÓÚÂÊÎÔÛÀÈÌÒÙ][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+(?:\\s?[A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+)+)$";
+        if(Pattern.matches(patern1,director)){
             this.director = director;
             return true;
         }else{
@@ -115,7 +121,7 @@ public class Pelicula{
      * @return
      */
     public boolean setFecha(String fecha) {
-        String patern1="^([0-2][0-9]|3[0-1])(\\/)(0[1-9]|1[0-2])\\2(\\d{4})$";
+        String patern1="^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";
         if(Pattern.matches(patern1,fecha)){
             this.fecha = fecha;
             return true;
@@ -141,8 +147,13 @@ public class Pelicula{
         return estreno;
     }
 
-    public void setEstreno(Integer estreno) {
-        this.estreno = estreno;
+    public boolean setEstreno(Integer estreno) {
+        if( estreno==1||estreno==0 ){
+            this.estreno = estreno;
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public String getComentario() {

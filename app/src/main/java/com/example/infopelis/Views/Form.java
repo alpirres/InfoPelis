@@ -238,23 +238,8 @@ public class Form extends AppCompatActivity implements formInterface.View {
                     // A partir de Marshmallow (6.0) se pide aceptar o rechazar el permiso en tiempo de ejecución
                     // En las versiones anteriores no es posible hacerlo
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                        new AlertDialog.Builder(myContext)
-                            .setTitle("Permission needed")
-                            .setMessage("Se necesitan permisos para acceder a la galerĂ­a")
-                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    ActivityCompat.requestPermissions(Form.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-                                }
-                            })
-                            .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    Snackbar.make(constraintLayoutMainActivity, getResources().getString(R.string.write_permission_not_accepted), Snackbar.LENGTH_LONG).show();
-                                }
-                            })
-                            .create().show();
+                        ActivityCompat.requestPermissions(Form.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                        Snackbar.make(constraintLayoutMainActivity, getResources().getString(R.string.write_permission_not_accepted), Snackbar.LENGTH_LONG).show();
                         // Una vez que se pide aceptar o rechazar el permiso se ejecuta el método "onRequestPermissionsResult" para manejar la respuesta
                         // Si el usuario marca "No preguntar más" no se volverá a mostrar este diálogo
                     } else {
@@ -281,9 +266,6 @@ public class Form extends AppCompatActivity implements formInterface.View {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery, REQUEST_SELECT_IMAGE);
     }
-
-
-
 
 
     @Override
@@ -382,6 +364,7 @@ public class Form extends AppCompatActivity implements formInterface.View {
                     // Permiso aceptado
                     Snackbar.make(constraintLayoutMainActivity, getResources().getString(R.string.write_permission_accepted), Snackbar.LENGTH_LONG)
                             .show();
+                    openGallery();
                 } else {
                     // Permiso rechazado
                     Snackbar.make(constraintLayoutMainActivity, getResources().getString(R.string.write_permission_not_accepted), Snackbar.LENGTH_LONG)
