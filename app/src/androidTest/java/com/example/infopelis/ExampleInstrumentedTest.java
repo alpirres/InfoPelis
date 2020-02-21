@@ -148,11 +148,4 @@ public class ExampleInstrumentedTest {
         assertEquals(0, categorias.size());
 
     }
-
-    @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.infopelis", appContext.getPackageName());
-    }
 }
