@@ -21,4 +21,9 @@ public class buscarPresenter implements buscarInterface.Presenter{
     public ArrayList<String> obtenerCategorias(Context myContext){
         return pelicula.getCategorias();
     }
+
+    @Override
+    public void Help() {
+        view.showAyuda();
+    }
 }

@@ -37,7 +37,7 @@ public class PeliculaModel extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(sqlCreate);
-        //insertardatosejemplo(sqLiteDatabase);
+        insertardatosejemplo(sqLiteDatabase);
     }
 
 

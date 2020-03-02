@@ -17,6 +17,8 @@ public interface listInterface {
 
         void Find();
 
+        void Help();
+
         boolean deletePeli(int i);
 
         ArrayList<Pelicula> findAllPeliculas();
@@ -28,5 +30,7 @@ public interface listInterface {
         void showForm();
 
         void showBuscar();
+
+        void showAyuda();
     }
 }

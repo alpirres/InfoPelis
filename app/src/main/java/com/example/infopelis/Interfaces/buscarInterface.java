@@ -10,10 +10,13 @@ public interface buscarInterface {
     interface Presenter{
 
         ArrayList<String> obtenerCategorias(Context myContext);
+
+        void Help();
     }
 
     interface View{
 
+        void showAyuda();
 
     }
 }

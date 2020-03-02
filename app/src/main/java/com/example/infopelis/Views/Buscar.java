@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -87,6 +89,29 @@ public class Buscar extends AppCompatActivity implements buscarInterface.View {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.ayuda) {
+            Log.d(TAG, "Pulsando menu ayuda...");
+            presenter.Help();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onStart(){
@@ -122,5 +147,12 @@ public class Buscar extends AppCompatActivity implements buscarInterface.View {
     protected void onDestroy(){
         super.onDestroy();
         Log.d(TAG, "Ejecutando onDestroy...");
+    }
+
+    @Override
+    public void showAyuda() {
+        Log.d(TAG, "Lanzando Ayuda");
+        Intent intent = new Intent(Buscar.this, Ayuda.class);
+        startActivity(intent);
     }
 }

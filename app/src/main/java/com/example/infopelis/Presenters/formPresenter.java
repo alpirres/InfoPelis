@@ -35,6 +35,11 @@ public class formPresenter implements formInterface.Presenter{
     }
 
     @Override
+    public void Help() {
+        view.showAyuda();
+    }
+
+    @Override
     public boolean saveDataForm(Pelicula pelicula, Context myContext) {
         if (this.pelicula.insertar(pelicula)) {
             Back();

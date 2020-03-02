@@ -4,7 +4,7 @@
     <string name="action_buscar">Buscar</string>
     <string name="action_ordenar">Ordenar</string>
     <string name="action_image">galeryBoton</string>
-    <string name="action_info">Sobre infoPelis</string>
+    <string name="action_info">Ayuda</string>
     <string name="title_activity_form">Form</string>
     <string name="title_activity_list">List</string>
     <string name="title_activity_buscar">Busqueda</string>
@@ -38,7 +38,6 @@
     <string name="error_cat">Introduce un Categoria</string>
     <string name="error_comentario">Introduce algun Comentario</string>
     <string name="error_picker">Introduce un formato correcto(dd/mm/aaaa)</string>
-
 
 
     //Toast

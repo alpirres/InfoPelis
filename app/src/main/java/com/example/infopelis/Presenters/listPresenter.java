@@ -32,6 +32,11 @@ public class listPresenter implements listInterface.Presenter {
     }
 
     @Override
+    public void Help() {
+        view.showAyuda();
+    }
+
+    @Override
     public boolean deletePeli(int codigo){
         if(pelicula.delete(codigo)){
             return true;

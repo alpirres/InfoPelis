@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -267,6 +268,12 @@ public class Form extends AppCompatActivity implements formInterface.View {
         startActivityForResult(gallery, REQUEST_SELECT_IMAGE);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -276,7 +283,9 @@ public class Form extends AppCompatActivity implements formInterface.View {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.ayuda) {
+            Log.d(TAG, "Pulsando menu ayuda...");
+            presenter.Help();
             return true;
         }
 
@@ -354,6 +363,13 @@ public class Form extends AppCompatActivity implements formInterface.View {
     public void returnToList() {
         Log.d(TAG, "Finalizando la actividad...");
         finish();
+    }
+
+    @Override
+    public void showAyuda() {
+        Log.d(TAG, "Lanzando Ayuda");
+        Intent intent = new Intent(Form.this, Ayuda.class);
+        startActivity(intent);
     }
 
     @Override

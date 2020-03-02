@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -90,6 +91,18 @@ public class List extends AppCompatActivity implements listInterface.View {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.ayuda:
+                Log.d(TAG, "Pulsando menu ayuda...");
+                presenter.Help();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -275,7 +288,12 @@ public class List extends AppCompatActivity implements listInterface.View {
         startActivityForResult(intent, PICK_CONTACT_REQUEST);
     }
 
-
+    @Override
+    public void showAyuda() {
+        Log.d(TAG, "Lanzando Ayuda");
+        Intent intent = new Intent(List.this, Ayuda.class);
+        startActivity(intent);
+    }
 
 
 }

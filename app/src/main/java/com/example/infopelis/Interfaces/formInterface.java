@@ -16,6 +16,8 @@ public interface formInterface {
 
         void Back();
 
+        void Help();
+
         boolean saveDataForm(Pelicula pelicula, Context myContext);
 
         boolean actualizaPeli(Pelicula pelicula, Context myContext);
@@ -30,5 +32,6 @@ public interface formInterface {
     interface View{
 
         void returnToList();
+        void showAyuda();
     }
 }
