@@ -49,7 +49,7 @@ public class Ayuda extends AppCompatActivity {
         });
         Bundle actividad = this.getIntent().getExtras();
 
-        mWebview .loadUrl("https://github.com/alpirres/InfoPelis");
+        mWebview .loadUrl("https://alpirres.github.io/InfoPelis/");
         setContentView(mWebview );
 
 
