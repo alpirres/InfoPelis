@@ -1,11 +1,11 @@
-# InfoPelis
+# InfoPelis 🚀
 Infopelis es una palicacion en la que puedes recoger informacion de las peliculas que más desees.
 
-## Instalación
+## Instalación 🔧
 
 Usando la ultima realise en la que aparece el apk instalable [aquí](https://github.com/alpirres/InfoPelis/releases/tag/1.0-beta7-Unidad7)
 
-## Uso
+## Uso 📋
 
 Tiene un formulario para rellenar los datos de la pelicula, que cuando se le da a guardar se guardan en una base de datos local
 del dispositivo en el que esta instalada, y se dirige a una pagina listado en la que se muestran todas las peliculas guardadas,
@@ -18,6 +18,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
-## Realización
+## Realización 🛠️
 Alfonso Prieto Escribano durante el curso de Desarrollo de applicaciones Multiplataforma
 en IES Francisco De Los Rios.
